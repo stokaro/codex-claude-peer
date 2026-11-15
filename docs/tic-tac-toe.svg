@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1200 840" role="img" aria-labelledby="title description">
+  <title id="title">Codex and Claude play tic-tac-toe through a local relay</title>
+  <desc id="description">Eight arrows alternate between Codex and Claude through a local relay. Codex plays X and Claude plays O. After Claude's eighth move, square 7 is the only remaining square. The resulting board is a draw.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#101A2D"/>
+      <stop offset="1" stop-color="#07111E"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#354F8B" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#354F8B" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="arrow-x" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#66DDEA"/>
+    </marker>
+    <marker id="arrow-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#FFB98D"/>
+    </marker>
+    <style>
+      text { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .eyebrow { fill: #74DCEB; font-size: 13px; font-weight: 700; letter-spacing: 2.8px; }
+      .heading { fill: #F1F7FF; font-size: 38px; font-weight: 750; letter-spacing: -.9px; }
+      .muted { fill: #A9B8CF; font-size: 16px; }
+      .lane { fill: #EAF3FF; font-size: 17px; font-weight: 720; letter-spacing: .5px; }
+      .chip { fill: #E8F2FF; font-size: 16px; font-weight: 650; }
+      .chip-index { fill: #8EA2BE; font-size: 13px; font-weight: 680; }
+      .section-label { fill: #A8B9D6; font-size: 12px; font-weight: 720; letter-spacing: 2px; }
+      .summary { fill: #EDF5FF; font-size: 25px; font-weight: 690; }
+      .result { fill: #F5D68E; font-size: 48px; font-weight: 800; letter-spacing: 2px; }
+      .board-mark { font-size: 29px; font-weight: 760; text-anchor: middle; }
+      .board-turn { fill: #AAB9CB; font-size: 10px; font-weight: 700; text-anchor: end; }
+    </style>
+  </defs>
+  <rect width="1200" height="840" rx="28" fill="url(#background)"/>
+  <circle cx="1000" cy="5" r="355" fill="url(#glow)"/>
+  <rect x="1" y="1" width="1198" height="838" rx="27" fill="none" stroke="#344561" stroke-opacity=".7"/>
+
+  <text x="64" y="52" class="eyebrow">A LIVE PEER EXCHANGE</text>
+  <text x="64" y="102" class="heading">One game. Two agents. One relay.</text>
+  <text x="64" y="134" class="muted">The arrows are messages. The board records the moves.</text>
+  <path d="M 64 155 H 1136" stroke="#405371" stroke-opacity=".65"/>
+
+  <rect x="64" y="174" width="260" height="52" rx="14" fill="#163145" stroke="#2B6C80"/>
+  <circle cx="94" cy="200" r="16" fill="#2D7589"/>
+  <text x="94" y="206" fill="#F2FFFF" font-size="17" font-weight="750" text-anchor="middle">X</text>
+  <text x="124" y="207" class="lane">CODEX</text>
+  <rect x="465" y="174" width="270" height="52" rx="14" fill="#252847" stroke="#6865A6"/>
+  <circle cx="496" cy="200" r="15" fill="#665CA5"/>
+  <text x="496" y="206" fill="#FFFFFF" font-size="20" font-weight="750" text-anchor="middle">↔</text>
+  <text x="526" y="207" class="lane">LOCAL RELAY</text>
+  <rect x="876" y="174" width="260" height="52" rx="14" fill="#3B2936" stroke="#A57078"/>
+  <circle cx="906" cy="200" r="16" fill="#AA6A6D"/>
+  <text x="906" y="206" fill="#FFF9F6" font-size="17" font-weight="750" text-anchor="middle">O</text>
+  <text x="936" y="207" class="lane">CLAUDE</text>
+
+  <path d="M 600 232 V 620" stroke="#A296DD" stroke-opacity=".34" stroke-width="2" stroke-dasharray="4 9"/>
+  <g class="move" data-turn="1" data-agent="Codex" data-mark="X" data-square="5" data-exchanged="true">
+    <rect x="64" y="238" width="1072" height="40" rx="11" fill="#12283A" fill-opacity=".78"/>
+    <path d="M 254 258 H 948" fill="none" stroke="#66DDEA" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-x)"/>
+    <circle cx="600" cy="258" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="258" r="2.5" fill="#DDD5FF"/>
+    <rect x="96" y="241" width="140" height="34" rx="9" fill="#1B3B4F" stroke="#347084"/>
+    <text class="chip" x="111" y="263"><tspan class="chip-index">01</tspan><tspan dx="10" fill="#66DDEA">X</tspan><tspan dx="10" fill="#F1F6FF">→ 5</tspan></text>
+  </g>
+  <g class="move" data-turn="2" data-agent="Claude" data-mark="O" data-square="1" data-exchanged="true">
+    <rect x="64" y="287" width="1072" height="40" rx="11" fill="#2C2132" fill-opacity=".78"/>
+    <path d="M 946 307 H 252" fill="none" stroke="#FFB98D" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-o)"/>
+    <circle cx="600" cy="307" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="307" r="2.5" fill="#DDD5FF"/>
+    <rect x="964" y="290" width="140" height="34" rx="9" fill="#4B3039" stroke="#9E656C"/>
+    <text class="chip" x="979" y="312"><tspan class="chip-index">02</tspan><tspan dx="10" fill="#FFB98D">O</tspan><tspan dx="10" fill="#F1F6FF">→ 1</tspan></text>
+  </g>
+  <g class="move" data-turn="3" data-agent="Codex" data-mark="X" data-square="9" data-exchanged="true">
+    <rect x="64" y="336" width="1072" height="40" rx="11" fill="#12283A" fill-opacity=".78"/>
+    <path d="M 254 356 H 948" fill="none" stroke="#66DDEA" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-x)"/>
+    <circle cx="600" cy="356" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="356" r="2.5" fill="#DDD5FF"/>
+    <rect x="96" y="339" width="140" height="34" rx="9" fill="#1B3B4F" stroke="#347084"/>
+    <text class="chip" x="111" y="361"><tspan class="chip-index">03</tspan><tspan dx="10" fill="#66DDEA">X</tspan><tspan dx="10" fill="#F1F6FF">→ 9</tspan></text>
+  </g>
+  <g class="move" data-turn="4" data-agent="Claude" data-mark="O" data-square="3" data-exchanged="true">
+    <rect x="64" y="385" width="1072" height="40" rx="11" fill="#2C2132" fill-opacity=".78"/>
+    <path d="M 946 405 H 252" fill="none" stroke="#FFB98D" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-o)"/>
+    <circle cx="600" cy="405" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="405" r="2.5" fill="#DDD5FF"/>
+    <rect x="964" y="388" width="140" height="34" rx="9" fill="#4B3039" stroke="#9E656C"/>
+    <text class="chip" x="979" y="410"><tspan class="chip-index">04</tspan><tspan dx="10" fill="#FFB98D">O</tspan><tspan dx="10" fill="#F1F6FF">→ 3</tspan></text>
+  </g>
+  <g class="move" data-turn="5" data-agent="Codex" data-mark="X" data-square="2" data-exchanged="true">
+    <rect x="64" y="434" width="1072" height="40" rx="11" fill="#12283A" fill-opacity=".78"/>
+    <path d="M 254 454 H 948" fill="none" stroke="#66DDEA" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-x)"/>
+    <circle cx="600" cy="454" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="454" r="2.5" fill="#DDD5FF"/>
+    <rect x="96" y="437" width="140" height="34" rx="9" fill="#1B3B4F" stroke="#347084"/>
+    <text class="chip" x="111" y="459"><tspan class="chip-index">05</tspan><tspan dx="10" fill="#66DDEA">X</tspan><tspan dx="10" fill="#F1F6FF">→ 2</tspan></text>
+  </g>
+  <g class="move" data-turn="6" data-agent="Claude" data-mark="O" data-square="8" data-exchanged="true">
+    <rect x="64" y="483" width="1072" height="40" rx="11" fill="#2C2132" fill-opacity=".78"/>
+    <path d="M 946 503 H 252" fill="none" stroke="#FFB98D" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-o)"/>
+    <circle cx="600" cy="503" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="503" r="2.5" fill="#DDD5FF"/>
+    <rect x="964" y="486" width="140" height="34" rx="9" fill="#4B3039" stroke="#9E656C"/>
+    <text class="chip" x="979" y="508"><tspan class="chip-index">06</tspan><tspan dx="10" fill="#FFB98D">O</tspan><tspan dx="10" fill="#F1F6FF">→ 8</tspan></text>
+  </g>
+  <g class="move" data-turn="7" data-agent="Codex" data-mark="X" data-square="4" data-exchanged="true">
+    <rect x="64" y="532" width="1072" height="40" rx="11" fill="#12283A" fill-opacity=".78"/>
+    <path d="M 254 552 H 948" fill="none" stroke="#66DDEA" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-x)"/>
+    <circle cx="600" cy="552" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="552" r="2.5" fill="#DDD5FF"/>
+    <rect x="96" y="535" width="140" height="34" rx="9" fill="#1B3B4F" stroke="#347084"/>
+    <text class="chip" x="111" y="557"><tspan class="chip-index">07</tspan><tspan dx="10" fill="#66DDEA">X</tspan><tspan dx="10" fill="#F1F6FF">→ 4</tspan></text>
+  </g>
+  <g class="move" data-turn="8" data-agent="Claude" data-mark="O" data-square="6" data-exchanged="true">
+    <rect x="64" y="581" width="1072" height="40" rx="11" fill="#2C2132" fill-opacity=".78"/>
+    <path d="M 946 601 H 252" fill="none" stroke="#FFB98D" stroke-width="2.5" stroke-opacity=".9" marker-end="url(#arrow-o)"/>
+    <circle cx="600" cy="601" r="8" fill="#151D32" stroke="#B4A9E9" stroke-width="2"/>
+    <circle cx="600" cy="601" r="2.5" fill="#DDD5FF"/>
+    <rect x="964" y="584" width="140" height="34" rx="9" fill="#4B3039" stroke="#9E656C"/>
+    <text class="chip" x="979" y="606"><tspan class="chip-index">08</tspan><tspan dx="10" fill="#FFB98D">O</tspan><tspan dx="10" fill="#F1F6FF">→ 6</tspan></text>
+  </g>
+
+  <rect x="64" y="647" width="1072" height="160" rx="20" fill="#17243A" stroke="#3B4C69"/>
+  <text x="94" y="682" class="section-label">AFTER CLAUDE'S LAST REPLY</text>
+  <text x="94" y="721" class="summary">Only square 7 remains.</text>
+  <text x="94" y="752" class="muted">Codex's final X is forced; no ninth message is shown.</text>
+  <text x="660" y="733" class="result">DRAW</text>
+  <text x="663" y="759" class="muted">8 messages · 9 squares</text>
+  <g class="board-cell" data-square="1" data-mark="O" data-turn="2" data-forced="false">
+    <rect x="943" y="654" width="46" height="46" rx="8" fill="#513B47" stroke="#946872" stroke-width="1.5"/>
+    <text x="966" y="688" class="board-mark" fill="#FFBE96">O</text>
+    <text x="983" y="667" class="board-turn">2</text>
+  </g>
+  <g class="board-cell" data-square="2" data-mark="X" data-turn="5" data-forced="false">
+    <rect x="993" y="654" width="46" height="46" rx="8" fill="#29495B" stroke="#46798C" stroke-width="1.5"/>
+    <text x="1016" y="688" class="board-mark" fill="#73E1EC">X</text>
+    <text x="1033" y="667" class="board-turn">5</text>
+  </g>
+  <g class="board-cell" data-square="3" data-mark="O" data-turn="4" data-forced="false">
+    <rect x="1043" y="654" width="46" height="46" rx="8" fill="#513B47" stroke="#946872" stroke-width="1.5"/>
+    <text x="1066" y="688" class="board-mark" fill="#FFBE96">O</text>
+    <text x="1083" y="667" class="board-turn">4</text>
+  </g>
+  <g class="board-cell" data-square="4" data-mark="X" data-turn="7" data-forced="false">
+    <rect x="943" y="704" width="46" height="46" rx="8" fill="#29495B" stroke="#46798C" stroke-width="1.5"/>
+    <text x="966" y="738" class="board-mark" fill="#73E1EC">X</text>
+    <text x="983" y="717" class="board-turn">7</text>
+  </g>
+  <g class="board-cell" data-square="5" data-mark="X" data-turn="1" data-forced="false">
+    <rect x="993" y="704" width="46" height="46" rx="8" fill="#29495B" stroke="#46798C" stroke-width="1.5"/>
+    <text x="1016" y="738" class="board-mark" fill="#73E1EC">X</text>
+    <text x="1033" y="717" class="board-turn">1</text>
+  </g>
+  <g class="board-cell" data-square="6" data-mark="O" data-turn="8" data-forced="false">
+    <rect x="1043" y="704" width="46" height="46" rx="8" fill="#513B47" stroke="#946872" stroke-width="1.5"/>
+    <text x="1066" y="738" class="board-mark" fill="#FFBE96">O</text>
+    <text x="1083" y="717" class="board-turn">8</text>
+  </g>
+  <g class="board-cell" data-square="7" data-mark="X" data-turn="9" data-forced="true">
+    <rect x="943" y="754" width="46" height="46" rx="8" fill="#29495B" stroke="#F5D68E" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="966" y="788" class="board-mark" fill="#F5D68E">X</text>
+    <text x="983" y="767" class="board-turn">9</text>
+  </g>
+  <g class="board-cell" data-square="8" data-mark="O" data-turn="6" data-forced="false">
+    <rect x="993" y="754" width="46" height="46" rx="8" fill="#513B47" stroke="#946872" stroke-width="1.5"/>
+    <text x="1016" y="788" class="board-mark" fill="#FFBE96">O</text>
+    <text x="1033" y="767" class="board-turn">6</text>
+  </g>
+  <g class="board-cell" data-square="9" data-mark="X" data-turn="3" data-forced="false">
+    <rect x="1043" y="754" width="46" height="46" rx="8" fill="#29495B" stroke="#46798C" stroke-width="1.5"/>
+    <text x="1066" y="788" class="board-mark" fill="#73E1EC">X</text>
+    <text x="1083" y="767" class="board-turn">3</text>
+  </g>
+</svg>

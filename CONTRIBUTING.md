@@ -8,7 +8,9 @@ behavior changes and run this before opening a pull request:
 python3 -m unittest discover -s tests -v
 ```
 
-The Claude Code peer socket format is an observed internal interface.
-When it changes, include the Claude Code and Codex versions used for the
-reproduction. Do not include session tokens, private paths containing
-secrets, or message contents from other users.
+The relay depends on observed Claude Code session-registry and peer-key
+file conventions beyond the documented inbox interface. See the
+[protocol reference](claude-peer/references/protocol.md) for that distinction.
+When those details change, include the Claude Code and Codex versions used
+for the reproduction. Do not include session tokens, private paths
+containing secrets, or message contents from other users.

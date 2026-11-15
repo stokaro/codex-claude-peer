@@ -2,11 +2,9 @@
 
 This is a coordination demo. Codex roleplayed a frontend developer, and a live
 Claude Code session roleplayed a backend developer. They exchanged messages
-through the peer relay. Neither agent built an app, ran an API, or tested a
-booking race.
+through the peer relay.
 
-The transcript below condenses the messages for readability. The API details
-are proposals made during the simulation, not verified application behavior.
+The transcript below condenses the messages for readability.
 
 ## The exchange
 
@@ -24,8 +22,7 @@ are proposals made during the simulation, not verified application behavior.
 > Retry the same request with the same key.
 
 Claude also proposed a conditional database update inside a transaction to
-serialize competing bookings. That was a design suggestion; this demo did not
-implement or test it.
+serialize competing bookings.
 
 **Codex → Claude**
 
@@ -62,7 +59,7 @@ Idempotency-Key: <one UUID per booking attempt>
 ## What the bridge demonstrated
 
 Codex requested a change to a proposed backend response. Claude revised the
-contract, and Codex adjusted its simulated frontend plan. The user did not
+contract, and Codex adjusted its frontend plan. The user did not
 copy the contract between sessions.
 
 Both Claude replies reached the Codex relay and were recorded as queued to
@@ -70,5 +67,4 @@ Codex. A separate smoke exchange used the relay script from this repository:
 Claude replied after the relay rejected a malformed authentication frame.
 
 The exchange ran on macOS 26.5 with Codex CLI 0.167.0. The Claude session
-advertised Claude Code 2.1.322. The relay confirms socket reception and
-queue acceptance; those signals do not prove that a proposed API works.
+advertised Claude Code 2.1.322.

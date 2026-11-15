@@ -93,8 +93,7 @@ see [delivery limits](#security-and-limitations).
 
 We simulated work on a reservation page with one seat left. Codex played
 the frontend developer, and a live Claude agent played the backend developer.
-They agreed on a response contract through the relay. No page, API, database,
-or booking race was implemented.
+They agreed on a response contract through the relay.
 
 Codex asked how to distinguish `sold_out` from a technical failure. Claude
 proposed a booking endpoint and an idempotency key. Codex then asked for

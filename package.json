@@ -1,0 +1,13 @@
+{
+  "name": "codex-claude-peer-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:diagrams": "node scripts/check-diagrams.mjs",
+    "check:diagrams:selftest": "node scripts/check-diagrams.mjs --selftest"
+  },
+  "devDependencies": {
+    "jsdom": "31.0.1",
+    "mermaid": "12.3.0"
+  }
+}

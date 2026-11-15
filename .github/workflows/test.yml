@@ -24,3 +24,14 @@ jobs:
         run: python -m py_compile claude-peer/scripts/peer.py
       - name: Unit tests
         run: python -m unittest discover -s tests -v
+  diagrams:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check:diagrams:selftest
+      - run: npm run check:diagrams

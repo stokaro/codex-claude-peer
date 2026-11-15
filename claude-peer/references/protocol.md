@@ -1,8 +1,12 @@
 # Local peer protocol
 
-This document describes `claude-peer/scripts/peer.py`. The Claude Code
-socket format is an observed internal interface. This is not an official
-or stable Claude Code protocol specification.
+This document describes `claude-peer/scripts/peer.py`. Claude Code documents
+[posting to a session's inbox socket](https://code.claude.com/docs/en/cross-session-messaging#the-sessions-inbox-socket).
+The session-registry, peer-key file, and relay-registration details below
+are observed implementation details beyond that documented interface.
+This reference describes the bridge's behavior; it is not an official or
+stable Claude Code protocol specification. See also the
+[project's terms-of-service position](../../docs/terms-of-service.md).
 
 ## Participants and addresses
 

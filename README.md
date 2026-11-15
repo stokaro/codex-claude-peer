@@ -44,9 +44,10 @@ npm install -g @openai/codex@0.167.0
 curl -fsSL https://claude.ai/install.sh | bash -s 2.1.322
 ```
 
-Claude's peer socket is an internal interface. A version number alone does
-not guarantee that it is available in every build or configuration. Check
-both CLIs before trying the bridge:
+Claude Code documents its inbox socket, but the relay also depends on
+internal session-registry and peer-key file conventions. A version number
+alone does not guarantee that the bridge works in every build or
+configuration. Check both CLIs before trying the bridge:
 
 ```sh
 codex queue --help
@@ -124,6 +125,14 @@ flowchart LR
 `peer.py serve` registers a short-lived Codex peer in Claude's local session
 directory. The relay and socket disappear when its command session stops.
 The local inbox records incoming frames and queue results for inspection.
+
+## Terms of service
+
+Our reading of the published terms and documentation is that local messaging
+between your own Claude Code and Codex sessions is not, by itself, a ToS
+violation. See the [project's position](docs/terms-of-service.md) for the
+official sources, the distinction between local peer tokens and cloud
+credentials, and the implementation details those sources do not cover.
 
 ## Requirements
 

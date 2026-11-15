@@ -59,9 +59,10 @@ stale records, which liveness checks ignore.
 Each connection carries UTF-8 newline-delimited JSON objects. The client
 sends an authentication frame first, then one or more message frames. The
 relay reads at most 1 MiB per line and closes a connection on an oversized
-or invalid frame. Each socket read has a five-second timeout. One client
-connection has a 30-second service deadline. A blocked read can add up
-to five seconds before the relay checks that deadline.
+or invalid frame. One client connection has a 30-second service deadline.
+The relay checks that deadline and stop requests between socket reads,
+including reads of an incomplete line. Each read waits at most five
+seconds or the remaining service time, whichever is shorter.
 
 The first frame has this shape. The token below is a placeholder:
 

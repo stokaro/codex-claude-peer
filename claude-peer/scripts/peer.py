@@ -318,52 +318,72 @@ def relay_to_codex(thread, frame):
     return "queued to Codex"
 
 
-def handle_client(client, token, thread):
-    client.settimeout(5)
-    deadline = time.monotonic() + MAX_CLIENT_SECONDS
-    with client.makefile("rb") as stream:
-        first = True
-        while not STOP:
-            if time.monotonic() >= deadline:
-                print("closed client after time limit", flush=True)
-                return
-            raw = stream.readline(MAX_FRAME + 1)
-            if not raw:
-                return
+def client_frames(client, deadline):
+    pending = bytearray()
+    while not STOP:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            print("closed client after time limit", flush=True)
+            return
+        newline = pending.find(b"\n")
+        if newline >= 0:
+            raw = bytes(pending[:newline + 1])
+            del pending[:newline + 1]
             if len(raw) > MAX_FRAME:
                 print("rejected oversized frame", flush=True)
                 return
-            try:
-                frame = json.loads(raw)
-            except (ValueError, RecursionError):
-                print("rejected invalid JSON frame", flush=True)
+            yield raw
+            continue
+        if len(pending) > MAX_FRAME:
+            print("rejected oversized frame", flush=True)
+            return
+        client.settimeout(min(5, remaining))
+        try:
+            chunk = client.recv(4096)
+        except socket.timeout:
+            if time.monotonic() >= deadline:
+                print("closed client after time limit", flush=True)
+            return
+        if not chunk:
+            return
+        pending.extend(chunk)
+
+
+def handle_client(client, token, thread):
+    deadline = time.monotonic() + MAX_CLIENT_SECONDS
+    first = True
+    for raw in client_frames(client, deadline):
+        try:
+            frame = json.loads(raw)
+        except (ValueError, RecursionError):
+            print("rejected invalid JSON frame", flush=True)
+            return
+        if not isinstance(frame, dict):
+            return
+        if first:
+            candidate = frame.get("token")
+            if (
+                frame.get("type") != "auth"
+                or not isinstance(candidate, str)
+                or not candidate.isascii()
+                or not hmac.compare_digest(candidate, token)
+            ):
+                print("rejected missing or invalid peer token", flush=True)
                 return
-            if not isinstance(frame, dict):
-                return
-            if first:
-                candidate = frame.get("token")
-                if (
-                    frame.get("type") != "auth"
-                    or not isinstance(candidate, str)
-                    or not candidate.isascii()
-                    or not hmac.compare_digest(candidate, token)
-                ):
-                    print("rejected missing or invalid peer token", flush=True)
-                    return
-                first = False
-                continue
-            if frame.get("type") == "auth":
-                print("rejected repeated auth frame", flush=True)
-                return
-            if frame.get("type") == "user":
-                status = relay_to_codex(thread, frame)
-                record(thread, frame, status)
-                print("incoming {} from {}: {}".format(frame.get("msg_id", "unknown"), frame.get("from", "unknown"), status), flush=True)
-            elif frame.get("type") == "control":
-                record(thread, frame, "control frame")
-                print("control {}".format(frame.get("action", "unknown")), flush=True)
-            else:
-                print("ignored frame of type {}".format(frame.get("type", "unknown")), flush=True)
+            first = False
+            continue
+        if frame.get("type") == "auth":
+            print("rejected repeated auth frame", flush=True)
+            return
+        if frame.get("type") == "user":
+            status = relay_to_codex(thread, frame)
+            record(thread, frame, status)
+            print("incoming {} from {}: {}".format(frame.get("msg_id", "unknown"), frame.get("from", "unknown"), status), flush=True)
+        elif frame.get("type") == "control":
+            record(thread, frame, "control frame")
+            print("control {}".format(frame.get("action", "unknown")), flush=True)
+        else:
+            print("ignored frame of type {}".format(frame.get("type", "unknown")), flush=True)
 
 
 def on_signal(_number, _frame):

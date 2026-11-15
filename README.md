@@ -65,7 +65,12 @@ mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
 cp -R codex-claude-peer/claude-peer "${CODEX_HOME:-$HOME/.codex}/skills/"
 ```
 
-Open Codex and ask it:
+In the Claude Code session, set up the example:
+
+> We are simulating a last-seat booking feature. You own the proposed
+> booking API. Answer questions from my Codex session about its contract.
+
+Then open Codex and ask it:
 
 > Use `$claude-peer` to find my live Claude Code session. Ask whether its
 > planned booking API returns the current seat count when an event sells out.

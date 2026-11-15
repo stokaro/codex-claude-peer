@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 import socket
 import tempfile
+import threading
+import time
 import unittest
 from unittest import mock
 
@@ -244,6 +246,33 @@ class RelayResilienceTests(unittest.TestCase):
         finally:
             server.close()
             client.close()
+
+    def test_incomplete_trickle_cannot_extend_client_deadline(self):
+        server, client = socket.socketpair()
+        output = io.StringIO()
+
+        def handle():
+            with contextlib.redirect_stdout(output):
+                peer.handle_client(server, "correct-token", THREAD)
+
+        worker = threading.Thread(target=handle)
+        try:
+            with mock.patch.object(peer, "MAX_CLIENT_SECONDS", 0.1):
+                worker.start()
+                stop_sending = time.monotonic() + 0.6
+                while worker.is_alive() and time.monotonic() < stop_sending:
+                    try:
+                        client.sendall(b" ")
+                    except BrokenPipeError:
+                        break
+                    time.sleep(0.01)
+                worker.join(timeout=0.1)
+            self.assertFalse(worker.is_alive(), "an incomplete line held the relay")
+            self.assertIn("closed client after time limit", output.getvalue())
+        finally:
+            client.close()
+            worker.join(timeout=1)
+            server.close()
 
     def test_serve_continues_after_a_client_exception(self):
         class DummyClient:

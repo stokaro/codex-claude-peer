@@ -106,9 +106,7 @@ the current seat count in a sold-out response. Claude added `seatsLeft` and
 `version`, and Codex updated its simulated frontend plan to ignore stale
 counter responses.
 
-Read the short [simulated exchange](docs/last-seat-simulation.md). It shows
-where a message changed the other agent's proposed work. The earlier
-[tic-tac-toe diagram](#example-a-game-of-tic-tac-toe) shows the raw turn-taking.
+Read the [simulated exchange](docs/last-seat-simulation.md).
 
 ## How it works
 
